@@ -167,6 +167,8 @@ public class RNAdalPlugin extends ReactContextBaseJavaModule {
 
       //  We should retrieve userId from broker cache since local is always empty
       boolean useBroker = AuthenticationSettings.INSTANCE.getUseBroker();
+      // Code below fails silently - need to ensure application passes in a userId
+      /*
       if (useBroker) {
         if (TextUtils.isEmpty(userId)) {
           // Get first user from account list
@@ -180,13 +182,13 @@ public class RNAdalPlugin extends ReactContextBaseJavaModule {
           }
         }
       }
-
+      */
     } catch (Exception e) {
       promise.reject(e);
       //callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, e.getMessage()));
       return;
     }
-
+    
     authContext.acquireTokenSilentAsync(resourceUrl, clientId, userId, new RNDefaultAuthenticationCallback(promise));
     return;
   }
